@@ -5,11 +5,10 @@ let isRainbowGrid = false;
 function createGrid(rows, columns, isRainbow) {
     gridContainer.innerHTML = '';
     let isMouseDown = false;
+
     if (isRainbow) {
         isRainbowGrid = true;
-    } else {
-        isRainbowGrid = true;
-    }
+    } 
     for (let i = 0; i < rows; i++){
         for (let j = 0; j < columns; j++) {
             const gridSquare = document.createElement('div')
@@ -47,6 +46,16 @@ function createGrid(rows, columns, isRainbow) {
 
 }
 
+const blackWhite = document.querySelector('#blackwhite');
+
+blackWhite.addEventListener('click', () => {
+    isRainbowGrid = false;
+    const rows = parseInt(document.querySelector('#rows').value);
+    const columns = parseInt(document.querySelector('#columns').value);
+
+    createGrid(rows, columns);
+});
+
 const rainbowButton = document.querySelector('#rainbow');
 
 rainbowButton.addEventListener('click', () => {
@@ -82,7 +91,13 @@ resetButton.addEventListener('click', () => {
 function resetGrid () {
     const rows = parseInt(document.querySelector('#rows').value);
     const columns = parseInt(document.querySelector('#columns').value);
-    createGrid(rows, columns, isRainbowGrid);
+    if (isRainbowGrid) {
+        createGrid(rows, columns, isRainbowGrid);
+    } else {
+        isRainbowGrid = false;
+        createGrid(rows, columns);
+    }
+
 }
 
 resetButton.addEventListener('click', resetGrid);
